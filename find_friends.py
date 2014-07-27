@@ -1,5 +1,17 @@
 def check_connection(network, first, second):
-    return True or False
+    matches = [first]
+    matches_found = True
+    while(matches_found):
+        matches_found = False
+        for net in network:
+            temp = net.split('-')
+            if temp[0] in matches and temp[1] not in matches:
+                matches.append(temp[1])
+                matches_found = True
+            elif temp[1] in matches and temp[0] not in matches:
+                matches.append(temp[0])
+                matches_found = True
+    return second in matches
 
 
 if __name__ == '__main__':
