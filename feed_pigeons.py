@@ -1,18 +1,25 @@
-def checkio(number):
+def checkio(feed):
     bird_counter = 0
     fed = 0
-    birds = 0
-    while(number > 0):
-        bird_diff = bird_counter*2
-        bird_counter +=1
-        birds += bird_counter
-        if (birds + bird_diff) <= number:
-            fed += bird_counter
-        else:
-            break
-    print fed
-    print '\n\n'
+    birds = []
+    while (feed > 0):
+        # bird configuration
+        bird_counter+=1
+        for i in range(bird_counter):
+            birds.append(0)
+        
+        for bird in range(len(birds)):
+            if feed > 0:
+                feed-=1
+                birds[bird]+=1
+    
+    # counts fed birds
+    for bird in birds:
+        if bird > 0:
+            fed+=1
+
     return fed
+    
 if __name__ == '__main__':
     #These "asserts" using only for self-checking and not necessary for auto-testing
     assert checkio(1) == 1, "1st example"
