@@ -11,15 +11,13 @@ def safe_pawns(pawns):
         str_row = ''
         for j in range(len(board)):
             if board[i][j] > 0:
-                # if (i!= 0 and j!=0) or (i!=0 and j!=7):
                 if i!=0:
-                    try:
-                        if board[i-1][j-1] or board[i-1][j+1]:
-                            board[i][j] = 'X'
-                            safe+=1
-                    except:
-                        print 'ERROR'
-                        pass
+                    if j!=0 and board[i-1][j-1]:
+                        board[i][j] = 'X'
+                        safe+=1
+                    elif j!=7 and board[i-1][j+1]:
+                        board[i][j] = 'X'
+                        safe+=1 
             str_row += str(board[i][j])
         print str_row
     print 'safe: %s \n' % safe
