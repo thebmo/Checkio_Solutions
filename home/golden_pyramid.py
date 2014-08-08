@@ -9,14 +9,19 @@ def count_gold(pyramid):
     # might be going about htis the wrong way (reverse order)
     for row in range(len(pyramid)):
         for col in range(len(pyramid[row])):            
-            if row!=0:
-                if col+1 > len(pyramid[row-1]): # <<<<<<<<<< RIGHT HERE                    
-                    vals[row][col] += pyramid[row][col] + vals[row-1][col-1]
-                else:
-                    if pyramid[row-1][col] > pyramid[row-1][col-1]:
-                        vals[row][col] += pyramid[row][col] + vals[row-1][col]
-                    else:
-                        vals[row][col] += pyramid[row][col] + vals[row-1][col-1]
+            if row != 0:
+                vals[row][col] = 
+            
+            
+            
+            # if row!=0:
+                # if col+1 > len(pyramid[row-1]): # <<<<<<<<<< RIGHT HERE                    
+                    # vals[row][col] += pyramid[row][col] + vals[row-1][col-1]
+                # else:
+                    # if pyramid[row-1][col] > pyramid[row-1][col-1]:
+                        # vals[row][col] += pyramid[row][col] + vals[row-1][col]
+                    # else:
+                        # vals[row][col] += pyramid[row][col] + vals[row-1][col-1]
     
     
     check_vals(vals)
