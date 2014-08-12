@@ -6,11 +6,17 @@ def count_gold(pyramid):
     vals[0][0] = pyramid[0][0]
     
     
-    # might be going about htis the wrong way (reverse order)
+    # might be going about this the wrong way (reverse order)
     for row in range(len(pyramid)):
         for col in range(len(pyramid[row])):            
-            if row != 0:
-                vals[row][col] = 
+            # if row != 0:
+            if col > row -1: 
+                vals[row][col] = pyramid[row][col] + vals[row-1][col-1]
+            else:
+                if pyramid[row-1][col] > pyramid[row-1][col-1]:
+                    vals[row][col] = pyramid[row][col] + vals[row-1][col]
+                else:
+                    vals[row][col] = pyramid[row][col] + vals[row-1][col-1]
             
             
             
@@ -36,6 +42,7 @@ def check_vals(vals):
         for val in level:
             val_str+= str(val) +' '
         print val_str
+    print "Greatest: %s\n" % max(vals[len(vals)-1])
 
 
 if __name__ == '__main__':
