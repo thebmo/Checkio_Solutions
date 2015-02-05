@@ -1,49 +1,36 @@
+# verify the val list is populated
+def print_vals(vals):
+    for row in vals:
+        print row
 
 def count_gold(pyramid):
+    p = pyramid
+    t = []
+    off_sets = [0, 1]
     
-    # initialize the val list
-    vals = [ [0 for j in range(i+1)] for i in range(len(pyramid))]
-    vals[0][0] = pyramid[0][0]
-    
-    
-    # might be going about this the wrong way (reverse order)
-    for row in range(len(pyramid)):
-        for col in range(len(pyramid[row])):            
-            # if row != 0:
-            if col > row -1: 
-                vals[row][col] = pyramid[row][col] + vals[row-1][col-1]
-            else:
-                if pyramid[row-1][col] > pyramid[row-1][col-1]:
-                    vals[row][col] = pyramid[row][col] + vals[row-1][col]
-                else:
-                    vals[row][col] = pyramid[row][col] + vals[row-1][col-1]
-            
-            
-            
-            # if row!=0:
-                # if col+1 > len(pyramid[row-1]): # <<<<<<<<<< RIGHT HERE                    
-                    # vals[row][col] += pyramid[row][col] + vals[row-1][col-1]
-                # else:
-                    # if pyramid[row-1][col] > pyramid[row-1][col-1]:
-                        # vals[row][col] += pyramid[row][col] + vals[row-1][col]
-                    # else:
-                        # vals[row][col] += pyramid[row][col] + vals[row-1][col-1]
-    
-    
-    check_vals(vals)
-    return max(vals[len(vals)-1])
-    
+    #creates an empty copy of the pyramid
+    for i in range(0, len(p)):
+        zeros = []
+        for j in range(0, i+1):
+            zeros.append(0)
+        t.append(zeros)
 
+    for x, row in enumerate(p):
+        for y, col, in enumerate(row):
+            if x == 0 and y == 0:
+                t[x][y] = p[x][y]
+            
+            for o in off_sets:
 
-# verify the val list is populated
-def check_vals(vals):
-    for level in vals:
-        val_str = ''
-        for val in level:
-            val_str+= str(val) +' '
-        print val_str
-    print "Greatest: %s\n" % max(vals[len(vals)-1])
+                try:
+                    if t[x][y] + p[x+1][y+o] > t[x+1][y+o]:
+                        t[x+1][y+o] = t[x][y] + p[x+1][y+o]
+                
+                except:
+                    pass
 
+    print_vals(t)
+    return max(t[len(t)-1])
 
 if __name__ == '__main__':
     assert count_gold((
