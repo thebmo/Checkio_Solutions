@@ -1,8 +1,4 @@
-# verify the val list is populated
-def print_vals(vals):
-    for row in vals:
-        print row
-
+# counts the gold
 def count_gold(pyramid):
     p = pyramid
     t = []
@@ -29,8 +25,23 @@ def count_gold(pyramid):
                 except:
                     pass
 
-    print_vals(t)
+    print '\nMAX GOLD:', max(t[len(t)-1]), '\n'
     return max(t[len(t)-1])
+
+
+# creates a pyramid with specified levels and max gold per
+# room if specifed, this is for testing time
+def create_pyramid(levels, MAX=1000):
+    from random import randrange as rand
+    pyramid = []
+    for L in range(0, levels):
+        level = []
+        for i in range(0, L+1):
+            level.append(rand(1,MAX))
+        pyramid.append(tuple(level))
+    
+    return tuple(pyramid)
+        
 
 if __name__ == '__main__':
     assert count_gold((
@@ -68,3 +79,4 @@ if __name__ == '__main__':
         (8,5,0,3,1,4,3,1),
         (9,6,4,1,1,9,3,7,9),
         (5,8,4,3,5,4,5,1,8,3))) == 66, "fourth example"
+    count_gold(create_pyramid(10)
