@@ -1,25 +1,11 @@
-# start node
-# end node,
+# get current position
+# check for nodes at CP
+# for each node, proceed down path until dead end or next node
+#    if next node, check if in visited spots
+#        if yes, skip it
+#        if no, take it (or maybe throw in temp list choice) and update visited spots
+#    repeat
 
-# nodes have 2< boarding spaces
-
-# open set is all nodes current (including start/finish node)
-
-
-
-# Let the node at which we are starting be called the initial node. Let the distance of node Y be the distance from the initial node to Y. Dijkstra's algorithm will assign some initial distance values and will try to improve them step by step.
-
-# Assign to every node a tentative distance value: set it to zero for our initial node and to infinity for all other nodes.
-
-# Mark all nodes unvisited. Set the initial node as current. Create a set of the unvisited nodes called the unvisited set consisting of all the nodes.
-
-# For the current node, consider all of its unvisited neighbors and calculate their tentative distances. For example, if the current node A is marked with a distance of 6, and the edge connecting it with a neighbor B has length 2, then the distance to B (through A) will be 6 + 2 = 8.
-
-# When we are done considering all of the neighbors of the current node, mark the current node as visited and remove it from the unvisited set. A visited node will never be checked again.
-
-# If the destination node has been marked visited (when planning a route between two specific nodes) or if the smallest tentative distance among the nodes in the unvisited set is infinity (when planning a complete traversal; occurs when there is no connection between the initial node and remaining unvisited nodes), then stop. The algorithm has finished.
-
-# Select the unvisited node that is marked with the smallest tentative distance, and set it as the new "current node" then go back to step 3.
 def main():
     GRAPH = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -36,20 +22,66 @@ def main():
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
     initial = (1,1)
+    curr = initial
     goal = (10, 10)
+    visited = [curr]
+    dirs = {
+        (-1, 0): 'N',
+        (1, 0): 'S',
+        (0, -1): 'W',
+        (0, 1): 'E'
+        }
     
-    print ''
+    print '\n'
     
+    # prints the graph
     for line in GRAPH:
         row = ''
         for i in line:
             row += (str(i) + ' ')
         print row
-    print '\ninitial: ' + str(initial)
-    print '   goal: ' + str(goal)
+    
+    print '\ninitial:', initial
+    print '   goal:', goal
+    
+    starting_nodes = node_test(curr, GRAPH, visited, dirs)
+    print starting_nodes
+    temp_paths = []
+    for node in starting_nodes:
+        path = []
+        next = node
+        
+        while(True):
+            next_list = node_test(next, GRAPH, visited, dirs)
+            if len(next_list) == 1:
+                next = next_list[0]
+                path.append(next)
+            else:
+                break
+            
+            
+
+        print 'node:',node, 'path:', path
+        
+    
+# returns the charecter of the direction traveled
+def get_direction(dirs, curr, next):
+    return dirs[(next[0] - curr [0], next[1] - curr [1])]
+        
+
 # Tests a coord to see if it is  a node
-# def Node_Test(X,Y, GRAPH):
-    # if graph[X][Y] has 3 or more 0's adj
+def node_test(curr, GRAPH, visited, dirs):
+    nodes = []
+    visited.append(curr)
+    x = curr[0]
+    y = curr[1]
+    
+    for d in dirs:
+        if GRAPH[x+d[0]][y+d[1]] == 0 and (x+d[0], y+d[1]) not in visited: 
+                nodes.append((x+d[0], y+d[1]))
+                visited.append(nodes[-1])
+    
+    return nodes
     
 if __name__ == '__main__':
   main()
